@@ -97,6 +97,15 @@ if st.button("Generate Reflection"):
                 st.success("Reflection Generated:")
                 st.markdown(f"> {result_text}")
 
+                # Save reflection to file
+                author_path = os.path.join("reflections", author_folder)
+                os.makedirs(author_path, exist_ok=True)
+                save_path = os.path.join(author_folder, str(surah_number))
+                os.makedirs(save_path, exist_ok=True)
+                file_name = f"{ayah_number}.txt"
+                with open(os.path.join(save_path, file_name), "w", encoding="utf-8") as f:
+                    f.write(result_text)
+
                 if st.download_button("Download Reflection", response['response_text'], file_name=f"reflection_{author_folder}_{surah_number}_{ayah_number}.txt"):
                     st.toast("File saved successfully.", icon="📁")
                 else:
